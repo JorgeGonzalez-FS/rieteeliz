@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tenemos que hablar...</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at center, #35080e 0%, #130207 45%, #030303 100%);
+      color: white;
+      font-family: Georgia, "Times New Roman", serif;
+      text-align: center;
+    }
+
+    .glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        circle at center,
+        transparent 10%,
+        rgba(255, 0, 40, 0.12) 100%
+      );
+      animation: pulse 3s infinite alternate;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: min(90%, 650px);
+      padding: 35px 22px;
+      border: 1px solid rgba(255, 70, 90, 0.25);
+      border-radius: 18px;
+      background: rgba(12, 4, 7, 0.8);
+      box-shadow: 0 0 50px rgba(190, 0, 30, 0.16);
+      animation: appear 1.2s ease;
+    }
+
+    .icon {
+      font-size: 55px;
+      margin-bottom: 22px;
+      animation: heartbeat 1.6s infinite;
+    }
+
+    .subtitle {
+      color: #ff7c8b;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 5px;
+      margin-bottom: 22px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(29px, 7vw, 49px);
+      line-height: 1.2;
+      margin-bottom: 20px;
+      text-shadow: 0 0 22px rgba(255, 0, 40, 0.35);
+    }
+
+    .description {
+      color: #c9b8bb;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      margin: 0 auto 28px;
+      max-width: 440px;
+    }
+
+    button {
+      padding: 15px 25px;
+      border: 1px solid #ff425b;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #9f001b, #e00032);
+      color: white;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 22px rgba(255, 0, 50, 0.2);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 35px rgba(255, 0, 50, 0.55);
+    }
+
+    #revelation {
+      display: none;
+      animation: reveal 1s ease both;
+    }
+
+    #revelation h2 {
+      margin: 20px 0;
+      color: #ff233f;
+      font-family: Arial, sans-serif;
+      font-size: clamp(30px, 8vw, 58px);
+      font-weight: 900;
+      line-height: 1.18;
+      text-shadow:
+        0 0 10px rgba(255, 0, 30, 0.8),
+        0 0 35px rgba(255, 0, 30, 0.4);
+    }
+
+    .warning {
+      color: #ff9aa6;
+      font-size: 13px;
+      letter-spacing: 3px;
+    }
+
+    .final-message {
+      margin-top: 24px;
+      color: #d7c3c6;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      color: #685156;
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .particle {
+      position: fixed;
+      z-index: 1;
+      top: -30px;
+      pointer-events: none;
+      animation: fall linear forwards;
+    }
+
+    .shake {
+      animation: shake 0.45s ease;
+    }
+
+    @keyframes pulse {
+      from { opacity: 0.45; }
+      to { opacity: 1; }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: scale(0.75); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-7px); }
+      40%, 80% { transform: translateX(7px); }
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .container { padding: 28px 16px; }
+      .subtitle { letter-spacing: 3px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="glow"></div>
+
+  <main class="container" id="card">
+    <div class="icon" id="icon">💔</div>
+
+    <p class="subtitle">Una noticia inesperada</p>
+
+    <section id="intro">
+      <h1>Amiga… tenemos que hablar.</h1>
+
+      <p class="description">
+        Sé que esto puede cambiarlo todo...
+        pero hay algo que necesitas saber.
+        Respira profundo y prepárate.
+      </p>
+
+      <button id="revealButton">
+        DESCUBRIR LA VERDAD
+      </button>
+    </section>
+
+    <section id="revelation" aria-live="polite">
+      <p class="warning">🚨 ÚLTIMA HORA 🚨</p>
+
+      <h2>TU MARIDO<br>TE MONTA CACHO</h2>
+
+      <p class="final-message">
+        ¡¡¡ NO PUEDE SER !!! 😱💔
+      </p>
+      
+      <button id="againButton">
+        VOLVER A EMPEZAR
+      </button>
+    </section>
+
+    <div class="footer">EL DRAMA APENAS COMIENZA...</div>
+  </main>
+
+  <script>
+    const intro = document.getElementById("intro");
+    const revelation = document.getElementById("revelation");
+    const revealButton = document.getElementById("revealButton");
+    const againButton = document.getElementById("againButton");
+    const card = document.getElementById("card");
+    const icon = document.getElementById("icon");
+
+    function createParticles() {
+      const symbols = ["💔", "💔", "🥀", "💥", "❤️‍🩹"];
+
+      for (let i = 0; i < 28; i++) {
+        const particle = document.createElement("span");
+        particle.className = "particle";
+        particle.textContent =
+          symbols[Math.floor(Math.random() * symbols.length)];
+
+        particle.style.left = Math.random() * 100 + "vw";
+        particle.style.fontSize = (15 + Math.random() * 18) + "px";
+        particle.style.animationDuration = (2 + Math.random() * 4) + "s";
+        particle.style.animationDelay = Math.random() * 1.5 + "s";
+
+        document.body.appendChild(particle);
+
+        particle.addEventListener("animationend", () => {
+          particle.remove();
+        });
+      }
+    }
+
+    revealButton.addEventListener("click", () => {
+      intro.style.display = "none";
+      revelation.style.display = "block";
+      icon.textContent = "😱";
+      card.classList.remove("shake");
+
+      // Reinicia la animación de sacudida.
+      void card.offsetWidth;
+      card.classList.add("shake");
+
+      createParticles();
+    });
+
+    againButton.addEventListener("click", () => {
+      revelation.style.display = "none";
+      intro.style.display = "block";
+      icon.textContent = "💔";
+      card.classList.remove("shake");
+
+      // Limpia las partículas que aún estén en pantalla.
+      document.querySelectorAll(".particle").forEach(p => p.remove());
+    });
+  </script>
+</body>
+</html>
